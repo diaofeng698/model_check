@@ -23,7 +23,7 @@ weights_path = 'DAD_weights_6_11'
 
 model_load = tf.keras.models.load_model(weights_path)
 
-cap = cv2.VideoCapture('dms_res_sglee.avi')
+cap = cv2.VideoCapture('../Test_data/dms_res_sglee.avi')
 
 fps = cap.get(cv2.CAP_PROP_FPS)
 print(f'frame per second is {fps}')
@@ -63,7 +63,7 @@ while cap.isOpened():
 
     state_now = img_pred
     output_text = f'current frame is {frame_now}, infer result is {map_list[img_pred]}, infer time is {time_cost}'
-    print(output_text)
+    # print(output_text)
 
     img_text = 'Result: ' + map_list[img_pred] + '   Conf: ' + str(conf)
     print(img_text)

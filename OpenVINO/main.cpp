@@ -2,8 +2,9 @@
 
 int main()
 {
-    file_name_t input_model = "../model/Model_DAD_OpenVINO.xml";
-    file_name_t input_image_path = "../model/chuanchuan_phone_interact_1MU9HI.jpg";
+
+    file_name_t input_model = "../../Model/Openvino/Model_DAD_OpenVINO.xml";
+
     std::string device_name = "CPU";
 
     std::shared_ptr<OpenvinoInference> infer;
@@ -12,9 +13,31 @@ int main()
 
     if (infer->Initialization())
         std::cout << "Openvino Initialization Failed, Please check ! " << std::endl;
-    if (infer->Inference(OpenvinoInference::PreProcessing, OpenvinoInference::ProcessOutput, input_image_path, infer))
+
+    // // frame infer
+    // file_name_t input_image_path = "../../Test_data/chuanchuan_phone_interact_0C82ZP.jpg";
+    // if (infer->Inference(OpenvinoInference::PreProcessing, OpenvinoInference::ProcessOutput, input_image_path,
+    // infer))
+    // {
+    //     std::cout << "Inference Failed" << std::endl;
+    // }
+
+    // Video Infer
+    std::string input_video_path = "../../Test_data/dms_res_sglee.avi";
+    cv::VideoCapture video(input_video_path);
+    while (true)
     {
-        std::cout << "Inference Failed" << std::endl;
+        cv::Mat input_frame;
+        video >> input_frame;
+        if (input_frame.empty())
+        {
+            break;
+        }
+        if (infer->Inference(OpenvinoInference::PreProcessing, OpenvinoInference::ProcessOutput, input_frame, infer))
+        {
+            std::cout << "Inference Failed " << std::endl;
+            return EXIT_FAILURE;
+        }
     }
 
     return 0;

@@ -23,7 +23,7 @@ weights_path = 'DAD_weights_6_11'
 
 model_load = tf.keras.models.load_model(weights_path)
 
-frame = cv2.imread("chuanchuan_phone_interact_1MU9HI.jpg")
+frame = cv2.imread("../Test_data/chuanchuan_phone_interact_0C82ZP.jpg")
 
 time_start = time.time()
 
