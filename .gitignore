@@ -1,0 +1,5 @@
+.vscode/
+build/
+__pycache__/
+*.zip
+Test_data/
